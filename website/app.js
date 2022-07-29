@@ -1,4 +1,6 @@
 /* Global Variables */
+const API_KEY = "65473b94c79c22336b818c678779ad47&units=imperial";
+
 const zipcode = document.getElementById('zip');
 const entryHolder = document.getElementById('entryHolder');
 const feelings = document.getElementById('feelings');
@@ -6,14 +8,12 @@ let date = document.getElementById('date');
 let temp = document.getElementById('temp');
 let content = document.getElementById('content');
 
-const API_KEY = "65473b94c79c22336b818c678779ad47";
-
 let data = {};
 let displayData = {};
 
 // Create a new date instance dynamically with JS
 let d = new Date();
-let newDate = d.getMonth()+'.'+ d.getDate()+'.'+ d.getFullYear();
+let newDate = `${d.getMonth() + 1}-${d.getDate()}-${d.getFullYear()}`;
 
 const generateBtn = document.querySelector('#generate');
 
@@ -67,12 +67,13 @@ const getData = async (url = '') => {
 }
 
 // kelvin to fahrenheit conversion
-const kelvinToFahrenheit = (temp) => {
-    return ((temp - 273.15) * 1.8 + 32).toFixed(2);
-}
+// const kelvinToFahrenheit = (temp) => {
+//     return ((temp - 273.15) * 1.8 + 32).toFixed(2);
+// }
 
 const updateUI = (data) => {
-    date.textContent = newDate;
-    temp.textContent = kelvinToFahrenheit(data.main.temp).toString();
-    content.textContent = data.weather[0].description;
+    date.innerHTML = newDate;
+    // temp.innerHTML = kelvinToFahrenheit(data.main.temp).toString() + ' &deg;F';
+    temp.innerHTML = data.main.temp + ' &deg;F';
+    content.innerHTML = data.weather[0].description;
 }
